@@ -20,11 +20,22 @@ def QR(a, b, c, d):
 
 # salsa20 algorithm takes in_16 as input which is 16 bit
 # plaintext to be encrypted
-def main(in_16):
+def main(in_16, nonce, counter, key):
+
+
+    k = [(key[4 * i : 4 * i + 4]) for i in range(8)]
+    n = [(nonce[4 * i : 4 * i + 4]) for i in range(2)]
+    b = [(counter[4 * i : 4 * i + 4]) for i in range(2)]
 
     in_16 = [16]
     x = [16]
     i = 0
+
+    x = [in_16[0], k[0], k[1], k[2], 
+    k[3], in_16[1], n[0], n[1],
+    b[0], b[1], in_16[2], k[4], 
+    k[5], k[6], k[7], in_16[3]]
+
 
     while i < ROUNDS:
         
@@ -43,6 +54,6 @@ def main(in_16):
         i += 2
 
     # final loop combines original input with
-    # ciphertext to create encrypted cipher text
+    # ciphertext
     for el in x:
         x[el] + in_16[el]
