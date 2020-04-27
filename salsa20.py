@@ -1,4 +1,9 @@
-# salsa20 attempt
+# Rc4 Python Implementation
+# Authors:
+# Dustin Ray
+# Tianyi Li
+# TCSS 581 - Spring 2020
+
 
 #global variable for number of rounds
 ROUNDS = 20
@@ -12,9 +17,9 @@ def ROTL(b, r):
 # quarter round function
 def QR(a, b, c, d):
 
-    b ^= ROTL(a + d, 7)	
-    c ^= ROTL(b + a, 9)	
-    d ^= ROTL(c + b, 13)	
+    b ^= ROTL(a + d, 7) 
+    c ^= ROTL(b + a, 9) 
+    d ^= ROTL(c + b, 13)    
     a ^= ROTL(d + c, 18)
 
 
@@ -27,9 +32,10 @@ def main(in_16, nonce, counter, key):
     n = [(nonce[4 * i : 4 * i + 4]) for i in range(2)]
     b = [(counter[4 * i : 4 * i + 4]) for i in range(2)]
 
-    in_16 = [16]
+   
     x = [16]
     i = 0
+
 
     x = [in_16[0], k[0], k[1], k[2], 
     k[3], in_16[1], n[0], n[1],
@@ -59,4 +65,28 @@ def main(in_16, nonce, counter, key):
         x[el] + in_16[el]
     
     return x
+
+if __name__ == "__main__":
     
+
+    #empty the output file, if there was one
+    with open('encrypted.txt', 'w'): 
+        pass
+
+    #define the plaintext path
+    #plaintext = 'This is a cryptology class'
+    bible_path = "pg10.txt"
+    cypher = "encrypted.txt"
+    nonce = [3,1,4,1,5,9,2,6]
+    counter = [7,0,0,0,0,0,0,0]
+    key = '1b27556473e985d462cd51197a9a46c76009549eac6474f206c4ee0844f68389'
+    output = open(cypher, "w")
+
+    with open(bible_path, "rb") as bible:
+        in_16 = bible.read(16)
+        while in_16 != b'':
+            print(main(in_16, nonce, counter, key), file = output)
+            for el in counter, nonce:
+                el + 1
+    bible.close()
+    output.close()
