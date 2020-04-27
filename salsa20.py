@@ -57,3 +57,6 @@ def main(in_16, nonce, counter, key):
     # ciphertext
     for el in x:
         x[el] + in_16[el]
+    
+    return x
+    
