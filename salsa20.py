@@ -78,7 +78,7 @@ if __name__ == "__main__":
     bible_path = "pg10.txt"
     cypher = "encrypted.txt"
     nonce = [3,1,4,1,5,9,2,6]
-    counter = [7,0,0,0,0,0,0,0]
+    counter = [0,0,0,0,0,0,0,0]
     key = '1b27556473e985d462cd51197a9a46c76009549eac6474f206c4ee0844f68389'
     output = open(cypher, "w")
 
