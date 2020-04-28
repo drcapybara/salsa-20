@@ -18,6 +18,9 @@ def ROTL(b, r):
 def QR(a, b, c, d):
 
     b ^= ROTL(a + d, 7) 
+
+    print(a)
+
     c ^= ROTL(b + a, 9) 
     d ^= ROTL(c + b, 13)    
     a ^= ROTL(d + c, 18)
@@ -84,6 +87,9 @@ if __name__ == "__main__":
 
     with open(bible_path, "rb") as bible:
         in_16 = bible.read(16)
+
+        #int(binaryString = ''.join(format(ord(i), 'b') for i in in_16)) 
+
         while in_16 != b'':
             print(main(in_16, nonce, counter, key), file = output)
             for el in counter, nonce:
